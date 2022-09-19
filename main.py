@@ -1,5 +1,6 @@
 # Импортируйте необходимые модули
 import datetime as dt
+import timeit
 
 FORMAT = '%H:%M:%S'  # Запишите формат полученного времени.
 WEIGHT = 75  # Вес.
@@ -12,7 +13,9 @@ storage_data = {}
 
 
 def check_correct_data(data):
-    if len(data) == 2 and data[0] != '' and data[0] is not None and data[1] is not None:
+    if not len(data) != 2 and None not in data:
+        return False
+    else:
         return True
 
 
@@ -75,7 +78,7 @@ f"""
 def accept_package(data):
     """Обработать пакет данных."""
 
-    if not check_correct_data(data):  # Если функция проверки пакета вернет False
+    if check_correct_data(data):  # Если функция проверки пакета вернет False
         return 'Некорректный пакет'
 
     # Распакуйте полученные данные.
