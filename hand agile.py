@@ -36,4 +36,3 @@ def read_input() -> Tuple[List[List[str]], int]:
 
 matrix, k = read_input()
 print(get_points(matrix, k))
-
