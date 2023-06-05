@@ -1,18 +1,12 @@
-##ID решения 87958230
-
-def get_points(values: str, clicks: int) -> int:
-    max_clicks_count = clicks*2
-    values_count = {}
-    values = ''.join(i for i in values)
-    values_set = set(values)
-    for i in values_set:
-        if i.isdigit():
-            values_count[int(i)] = values.count(i)
-    points = sum(1 for i in values_set if values.count(i) <= max_clicks_count
-                 and i != '.')
-    return points
+##ID решения 87969839
+def get_points(values: str,
+               clicks: int,
+               allowed_values: str='123456789') -> int:
+    values_count = {value:values.count(value) for value in values
+                    if value in allowed_values}
+    return sum(values_count[value] <= clicks for value in values_count.keys())
 
 if __name__ == '__main__':
-    k = int(input())
-    input_data = f'{input()}{input()}{input()}{input()}'
-    print(get_points(input_data, k))
+    print(get_points(clicks=int(input())*2,
+        values=''.join(i for i in f'{input()}{input()}{input()}{input()}'))
+          )
