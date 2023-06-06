@@ -1,20 +1,22 @@
-# id решения  87985154
+# id решения  87990581
 from typing import List
 
 def get_distances_to_nearest_zero(numbers: List[str],
                                   key_value: str= '0') -> List[int]:
     street_length = len(numbers)
     results = [0] * street_length
-    zeros = [position for position, value in enumerate(numbers)
+    zeros = [pos for pos, value in enumerate(numbers)
              if value == key_value]
     start, end = zeros[0], zeros[-1]
-    for pointer in range(start):
-        results[pointer] = start - pointer
-    for left, right in zip(zeros, zeros[1:]):
-        for pointer in range(left+1, right):
-                results[pointer] = (min(pointer - left, right - pointer))
-    for pointer in range(end+1, street_length):
-        results[pointer] = pointer - end
+    results[:start] = [start - pos for pos in range(start)]
+    results[start:end] = [
+        min(pos - left, right - pos)
+        for left, right in zip(zeros, zeros[1:])
+        for pos in range(left, right)
+    ]
+    results[end:] = [
+        pos - end for pos in range(end, street_length)
+    ]
     return results
 
 if __name__ == '__main__':
