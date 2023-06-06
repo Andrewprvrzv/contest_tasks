@@ -1,12 +1,11 @@
-##ID решения 87969839
+##ID решения 87985050
 def get_points(values: str,
                clicks: int,
+               players: int=2,
                allowed_values: str='123456789') -> int:
-    values_count = {value:values.count(value) for value in values
-                    if value in allowed_values}
-    return sum(values_count[value] <= clicks for value in values_count.keys())
+    max_clicks = clicks * players
+    return sum(values.count(value) <= max_clicks for value in allowed_values if value in values)
 
 if __name__ == '__main__':
-    print(get_points(clicks=int(input())*2,
-        values=''.join(i for i in f'{input()}{input()}{input()}{input()}'))
-          )
+    print(get_points(clicks=int(input()),
+        values=f'{input()}{input()}{input()}{input()}'))
